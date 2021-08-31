@@ -1,6 +1,6 @@
 # NTU-IoT-Server-Database
 
-[![WesleyCh3n - NTU-IoT-Server](https://img.shields.io/badge/WesleyCh3n-NTU--IoT--Server-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTU-IoT-Server) 
+[![WesleyCh3n - NTU-IoT-Server](https://img.shields.io/badge/WesleyCh3n-NTU--IoT--Server-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTU-IoT-Server)
 [![hackmd-github-sync-badge](https://hackmd.io/0-caMk-xQHWDdDMfPQqfvw/badge)](https://hackmd.io/0-caMk-xQHWDdDMfPQqfvw)
 
 [Reference](https://gabrieltanner.org/blog/grafana-sensor-visualization)
@@ -39,7 +39,7 @@ CREATE DATABASE sensors
 CREATE USER telegraf WITH PASSWORD 'telegraf'
 GRANT ALL ON sensors TO telegraf
 ```
- 
+
 ### Telegraf
 ```bash
 docker run -d --ip 172.17.0.5 \
@@ -77,7 +77,7 @@ In Grafana, use the below setting.
 ```yaml
 version: "3"
 services:
-  mqtt: 
+  mqtt:
     container_name: mqtt
     image: eclipse-mosquitto:1.6.13
     networks:
@@ -184,7 +184,7 @@ chronograf \
     AND "node"='01' \
     GROUP BY time($__interval) FILL(null)
     ```
-    
+
 ## Rsync Server
 
 ```bash

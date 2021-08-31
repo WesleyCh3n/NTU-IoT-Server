@@ -98,7 +98,7 @@ In this example, we use the following configuration
     ```
 
 - bring up wg0 interface, or do the second step if you want to startup on boot
-    
+
     - quick start
     ```bash
     wg-quick up wg0
@@ -125,7 +125,7 @@ In this example, we use the following configuration
         --flannel-iface wg0
     ```
 
-    
+
 - Wait till master is ready. To varify
     ```bash
     kubectl get no -o wide
@@ -177,7 +177,7 @@ In this example, we use the following configuration
     ```
 
 - bring up wg0 interface, or do the second step if you want to startup on boot
-    
+
     - quick start
     ```bash
     wg-quick up wg0
@@ -235,7 +235,7 @@ In this example, we use the following configuration
 
 
 ## Problem
-In order to let kube-system local-path-provisioner working. Add 
+In order to let kube-system local-path-provisioner working. Add
 ```bash
 iptables -A INPUT -s 10.42.0.0/16 -d <host_internal_ip>/32 -j ACCEPT
 ```

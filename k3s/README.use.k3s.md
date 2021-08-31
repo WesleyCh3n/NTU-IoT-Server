@@ -36,7 +36,7 @@ Docker Image: [wesleych3n/ntu-iot:send](https://hub.docker.com/layers/wesleych3n
 
 ---
 
-## Yaml parser: `j` 
+## Yaml parser: `j`
 
 Because we want to specify different numbers in `yaml` argument, `j` is the program to parse `{{  }}` with [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/) style.
 
