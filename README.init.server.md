@@ -1,9 +1,9 @@
 # MQTT Telegraf InfluxDB Grafana + Rsync with Docker Installation 
 
-![docker](https://www.docker.com/sites/default/files/d8/2019-07/horizontal-logo-monochromatic-white.png)
-
 [![WesleyCh3n - NTU-IoT-Server](https://img.shields.io/badge/WesleyCh3n-NTU--IoT--Server-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTU-IoT-Server)
 [![hackmd-github-sync-badge](https://hackmd.io/0-caMk-xQHWDdDMfPQqfvw/badge)](https://hackmd.io/0-caMk-xQHWDdDMfPQqfvw)
+
+![docker](https://www.docker.com/sites/default/files/d8/2019-07/horizontal-logo-monochromatic-white.png)
 
 [Reference](https://gabrieltanner.org/blog/grafana-sensor-visualization)
 
