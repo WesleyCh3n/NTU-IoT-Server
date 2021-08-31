@@ -1,0 +1,7 @@
+echo $@
+rsync -az --out-format="%t %n %'''b" \
+      --remove-source-files \
+      --timeout 30 \
+      -e "ssh -i <replaced> -o StrictHostKeyChecking=no" \
+      /home/pi/ntu-iot-node/data/img/ \
+      <replaced>@<replaced>:<replaced>/$@/ > /home/pi/rsync.log 2>&1

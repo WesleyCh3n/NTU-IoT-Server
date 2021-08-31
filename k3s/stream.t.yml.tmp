@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stream-{{ '%02d' % Number }}
+spec:
+  containers:
+  - name: stream
+    image: wesleych3n/ntu-iot:cc-slim
+    workingDir: /home/
+    command: ["/bin/bash"]
+    args:
+      - -c
+      - >-
+          ./ntu-iot-node
+          -s
+          -n {{ '%02d' % Number }}
+          -f ./cfg/node{{ '%02d' % Number }}_fence.csv
+          -D ./model/yolov4-tiny-416-fp16.tflite
+          -q <replaced>:1883
+          -u <replaced>
+          -p <replaced>
+    volumeMounts:
+      - mountPath: /home/
+        name: code
+      - mountPath: /opt/vc
+        name: vc
+      - mountPath: /dev/vchiq
+        name: vchiq
+      - mountPath: /dev/vcsm
+        name: vcsm
+      - mountPath: /etc/localtime
+        name: tz-config
+    securityContext:
+      privileged: true
+  nodeSelector:
+    node: "{{ '%02d' % Number }}"
+  volumes:
+      - name: code
+        hostPath:
+          path: /home/pi/ntu-iot-node/
+      - name: vc
+        hostPath:
+          path: /opt/vc
+      - name: vchiq
+        hostPath:
+          path: /dev/vchiq
+      - name: vcsm
+        hostPath:
+          path: /dev/vcsm
+      - name: tz-config
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Taipei

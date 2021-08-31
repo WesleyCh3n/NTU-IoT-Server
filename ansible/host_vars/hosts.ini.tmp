@@ -1,0 +1,10 @@
+[node]
+#test01 ansible_host=10.112.0.2 ansible_user=pi ansible_ssh_private_key_file=/home/wesley/cluster/secret/node
+NODE01 NUM=01 ansible_host=10.112.0.2 ansible_user=pi ansible_ssh_private_key_file=<replaced>
+NODE02 NUM=02 ansible_host=10.112.0.3 ansible_user=pi ansible_ssh_private_key_file=<replaced>
+NODE03 NUM=03 ansible_host=10.112.0.4 ansible_user=pi ansible_ssh_private_key_file=<replaced>
+NODE04 NUM=04 ansible_host=10.112.0.8 ansible_user=pi ansible_ssh_private_key_file=<replaced>
+NODE05 NUM=05 ansible_host=10.112.0.9 ansible_user=pi ansible_ssh_private_key_file=<replaced>
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3

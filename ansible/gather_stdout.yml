@@ -1,0 +1,21 @@
+---
+- hosts: node
+  gather_facts: false
+  become: yes
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  # - name: getting ls stdout
+  #   shell: ping -c3 google.com
+  #   register: ps
+  - name: getting systemd stdout
+    shell: systemctl status wifi.iot
+    register: ps
+  # - name: getting systemd stdout
+  #   shell: systemctl status run.iot
+  #   register: ps
+  # - name: getting df -h stdout
+  #   shell: df -h
+  #   register: ps
+  - name: print out
+    debug: var=ps.stdout_lines

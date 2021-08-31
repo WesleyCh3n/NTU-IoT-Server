@@ -1,0 +1,38 @@
+---
+- hosts: 127.0.0.1
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+    - name: download ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+      get_url:
+        url: https://github.com/WesleyCh3n/ntu-IoT-node/releases/download/v{{ version }}/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+        dest: ./src/deploy_code/
+- hosts: node
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+    - name: push ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+      ansible.posix.synchronize:
+        mode: push
+        src: ./src/deploy_code/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+        dest: /home/pi/
+    - name: create directory /home/pi/ntu-iot-node/ if not exist
+      ansible.builtin.file:
+        path: /home/pi/ntu-iot-node/
+        state: directory
+    - name: extract /home/pi/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+      ansible.builtin.unarchive:
+        src: /home/pi/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+        dest: /home/pi/ntu-iot-node/
+        remote_src: yes
+    - name: delete /home/pi/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+      ansible.builtin.file:
+        path: /home/pi/ntu-iot-node_{{ version }}_linux_arm32v7.tar.xz
+        state: absent
+    - name: save telegram.conf to /home/pi/ntu-iot-node/cfg/
+      ansible.posix.synchronize:
+        mode: push
+        src: /home/wesley/cluster/ansible/src/deploy_code/telegram-send.conf
+        dest: /home/pi/ntu-iot-node/cfg/

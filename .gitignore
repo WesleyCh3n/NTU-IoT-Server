@@ -1,0 +1,6 @@
+secret/*
+server/influxdb/*
+server/grafana/*
+*.tar.xz
+*.tar
+*.orig

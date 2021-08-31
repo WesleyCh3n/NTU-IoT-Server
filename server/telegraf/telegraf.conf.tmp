@@ -1,0 +1,54 @@
+[global_tags]
+# Configuration for telegraf agent
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  hostname = ""
+  omit_hostname = false
+
+###############################################################################
+#                            OUTPUT PLUGINS                                   #
+###############################################################################
+
+
+# Configuration for sending metrics to InfluxDB
+[[outputs.influxdb]]
+  ## The full HTTP or UDP URL for your InfluxDB instance.
+  ##
+  ## Multiple URLs can be specified for a single cluster, only ONE of the
+  ## urls will be written to each interval.
+  urls = ["http://172.18.0.4:8086"]
+
+  ## The target database for metrics; will be created as needed.
+  ## For UDP url endpoint database needs to be configured on server side.
+  database = "sensors"
+
+  ## If true, no CREATE DATABASE queries will be sent.  Set to true when using
+  ## Telegraf with a user without permissions to create databases or when the
+  ## database already exists.
+  skip_database_creation = true
+  ## HTTP Basic Auth
+  username = "telegraf"
+  password = "telegraf"
+
+
+# # Read metrics from MQTT topic(s)
+[[inputs.mqtt_consumer]]
+#   ## Broker URLs for the MQTT server or cluster.  To connect to multiple
+#   ## clusters or standalone servers, use a seperate plugin instance.
+  servers = ["tcp://172.18.0.3:1883"]
+#   ## Topics that will be subscribed to.
+  topics = [
+    "sensors"
+  ]
+  data_format = "influx"
+  username = "<replaced>"
+  password = "<replaced>"
+  qos = 0
+  persistent_session = false

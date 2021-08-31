@@ -1,0 +1,19 @@
+---
+- hosts: node
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  - name: Capture one image to /home/pi/{{ inventory_hostname }}.jpg by raspistill
+    ansible.builtin.shell:
+      cmd: raspistill -o /home/pi/{{ inventory_hostname }}.jpg
+  - name: create directory ./node_fence/ if not exist
+    ansible.builtin.file:
+      path: ./node_fence/
+      state: directory
+    delegate_to: localhost
+  - name: Copy /home/pi/{{ inventory_hostname }}.jpg ./node_fence/
+    ansible.posix.synchronize:
+      mode: pull
+      src: /home/pi/{{ inventory_hostname }}.jpg
+      dest: ./node_fence/

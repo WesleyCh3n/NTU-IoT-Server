@@ -1,0 +1,22 @@
+---
+- hosts: node
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  - name: deploy ssh key
+    ansible.posix.synchronize:
+      mode: push
+      src: ../secret/ml504
+      dest: /home/pi/.ssh/ml504
+  - name: deploy rsync script
+    ansible.posix.synchronize:
+      mode: push
+      src: ./src/deploy_rsync/rsync_img.sh
+      dest: /home/pi/
+  - name: create rsync cronjob to upload image
+    ansible.builtin.cron:
+      name: "upload img"
+      minute: "*/10"
+      job: "/home/pi/rsync_img.sh {{ inventory_hostname }}"
+      state: absent

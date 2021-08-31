@@ -1,0 +1,33 @@
+---
+- hosts: node
+  gather_facts: false
+  become: yes
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  - name: create wifi.iot.service
+    ansible.posix.synchronize:
+      mode: push
+      src: ./src/deploy_wifi_systemd/wifi.iot.service
+      dest: /etc/systemd/system/wifi.iot.service
+  - name: create directory /etc/systemd/system/wifi/
+    ansible.builtin.file:
+      path: /etc/systemd/system/wifi/
+      state: directory
+  - name: copy wifi.sh to /etc/systemd/system/wifi/
+    ansible.posix.synchronize:
+      mode: push
+      src: ./src/deploy_wifi_systemd/wifi.sh
+      dest: /etc/systemd/system/wifi/wifi.sh
+  - name: enable service
+    ansible.builtin.systemd:
+      name: wifi.iot
+      enabled: yes
+      masked: no
+  - name: daemond-reload
+    ansible.builtin.systemd:
+      daemon_reload: yes
+  - name: start service
+    ansible.builtin.systemd:
+      name: wifi.iot
+      state: restarted

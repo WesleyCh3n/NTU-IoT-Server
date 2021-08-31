@@ -1,0 +1,27 @@
+---
+- hosts: node
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  - name: Copy lib files
+    ansible.posix.synchronize:
+      mode: push
+      src: ./src/deploy_libtiff/
+      dest: /home/pi/
+  - name: Install .deb packages
+    become: yes
+    apt:
+      deb: "{{ item }}"
+    with_items:
+    - /home/pi/libjbig0_2.1-3.1+b2_armhf.deb
+    - /home/pi/libwebp6_0.6.1-2_armhf.deb
+    - /home/pi/libtiff5_4.1.0+git191117-2~deb10u2_armhf.deb
+  - name: delete .deb
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+    - /home/pi/libjbig0_2.1-3.1+b2_armhf.deb
+    - /home/pi/libwebp6_0.6.1-2_armhf.deb
+    - /home/pi/libtiff5_4.1.0+git191117-2~deb10u2_armhf.deb

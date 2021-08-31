@@ -1,0 +1,48 @@
+---
+- hosts: node
+  gather_facts: false
+  vars_files:
+    - ./host_vars/vars.yml
+  tasks:
+  - name: Creating run.sh
+    copy:
+      dest: /home/pi/run.sh
+      content: |
+        #!/bin/bash
+
+        cd /home/pi/ntu-iot-node/
+        ./ntu-iot-node -s \
+          -n {{ NUM }} \
+          -f ./cfg/node{{ NUM }}_fence.csv \
+          -D ./model/yolov4-tiny-416-fp16.tflite \
+          -q 10.112.0.1:1884 \
+          -u wesley \
+          -p ntubime405
+      mode: u=rwx,g=rx,o=rx
+  - name: Creating run.sh systemd
+    become: yes
+    copy:
+      dest: /etc/systemd/system/run.iot.service
+      content: |
+        [Unit]
+        Description=run ntu-iot-node
+
+        [Service]
+        Type=simple
+        User=pi
+        Restart=always
+        RestartSec=60s
+        ExecStart=/home/pi/run.sh
+
+        [Install]
+        WantedBy=multi-user.target
+      mode: u=rw,g=rw,o=r
+  - name: daemond-reload
+    become: yes
+    ansible.builtin.systemd:
+      daemon_reload: yes
+  - name: start run service
+    become: yes
+    ansible.builtin.systemd:
+      name: run.iot.service
+      state: restarted

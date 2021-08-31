@@ -1,0 +1,59 @@
+version: "3"
+services:
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto:1.6.13
+    networks:
+      IoT:
+        ipv4_address: 172.18.0.3
+    ports:
+      - "1884:1883"
+    volumes:
+      - /home/wesley/cluster/server/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /home/wesley/cluster/server/mosquitto/passwd:/mosquitto/passwd
+    restart: unless-stopped
+  influxdb:
+    container_name: influxdb
+    image: influxdb:1.8.4
+    networks:
+      IoT:
+        ipv4_address: 172.18.0.4
+    ports:
+      - "8086:8086"
+    volumes:
+      - /home/wesley/cluster/server/influxdb/:/var/lib/influxdb
+    restart: unless-stopped
+  telegraf:
+    container_name: telegraf
+    image: telegraf
+    networks:
+      IoT:
+        ipv4_address: 172.18.0.5
+    volumes:
+      - /home/wesley/cluster/server/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    restart: unless-stopped
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    user: "1004"
+    networks:
+      IoT:
+        ipv4_address: 172.18.0.6
+    ports:
+      - "3001:3000"
+    volumes:
+      - /home/wesley/cluster/server/grafana/:/var/lib/grafana
+    environment:
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gamil.com
+      - GF_SMTP_USER=<replaced>
+      - GF_SMTP_PASSWORD=<replaced>
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+    restart: unless-stopped
+networks:
+  IoT:
+    driver: bridge
+    ipam:
+     config:
+      - subnet: 172.18.0.0/16
+        gateway: 172.18.0.1
