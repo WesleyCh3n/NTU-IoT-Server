@@ -1,5 +1,8 @@
 # NTU-IoT-Server: k3s
 
+[![WesleyCh3n - NTU-IoT-Server](https://img.shields.io/badge/WesleyCh3n-NTU--IoT--Server-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTU-IoT-Server) [![hackmd-github-sync-badge](https://hackmd.io/BnkDNPPOR3ih29n067iA3Q/badge)](https://hackmd.io/BnkDNPPOR3ih29n067iA3Q)
+
+
 ## Pods
 
 2 Pods will be created in each node.
