@@ -20,6 +20,7 @@ docker run -d --ip 172.17.0.3 \
 -v F:\grafana\mosquitto\passwd:/mosquitto/passwd \
 eclipse-mosquitto:1.6.13
 ```
+[MQTT Username and Password Setting](http://www.steves-internet-guide.com/mqtt-username-password-example/)
 
 ### Influxdb
 ```bash
