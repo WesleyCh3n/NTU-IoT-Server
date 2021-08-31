@@ -3,7 +3,9 @@
 [![WesleyCh3n - NTU-IoT-Server](https://img.shields.io/badge/WesleyCh3n-NTU--IoT--Server-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTU-IoT-Server) [![hackmd-github-sync-badge](https://hackmd.io/pVh3bSYHSImngWi0rugCGA/badge)](https://hackmd.io/pVh3bSYHSImngWi0rugCGA)
 
 ![k3s cluster](https://i.imgur.com/jIZuxwQ.png)
-https://www.inovex.de/blog/how-to-set-up-a-k3s-cluster-on-wireguard/
+
+[Reference](https://www.inovex.de/blog/how-to-set-up-a-k3s-cluster-on-wireguard/)
+
 
 In this example, we use the following configuration
 - Server
@@ -98,7 +100,7 @@ In this example, we use the following configuration
     ```
 
 - bring up wg0 interface, or do the second step if you want to startup on boot
-
+    
     - quick start
     ```bash
     wg-quick up wg0
@@ -125,7 +127,7 @@ In this example, we use the following configuration
         --flannel-iface wg0
     ```
 
-
+    
 - Wait till master is ready. To varify
     ```bash
     kubectl get no -o wide
@@ -177,7 +179,7 @@ In this example, we use the following configuration
     ```
 
 - bring up wg0 interface, or do the second step if you want to startup on boot
-
+    
     - quick start
     ```bash
     wg-quick up wg0
@@ -235,7 +237,7 @@ In this example, we use the following configuration
 
 
 ## Problem
-In order to let kube-system local-path-provisioner working. Add
+In order to let kube-system local-path-provisioner working. Add 
 ```bash
 iptables -A INPUT -s 10.42.0.0/16 -d <host_internal_ip>/32 -j ACCEPT
 ```
