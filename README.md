@@ -13,3 +13,22 @@
 ## Overview
 ![](https://i.imgur.com/x8TBhiz.png)
 
+## Introduction
+
+This is NTU BME MS thesis project backend setting. Include several services:
+- Control:
+    - k3s: Control running services in nodes.
+    - Ansible: Update/Upgrade running program or configuration.
+    - WireGuard: VPN service for communication between server and nodes.
+- Database:
+    - MQTT + Telegraf + InfluxDB + Grafana: Dairy cow feeding data.
+    - Rsync: Backup image.
+    
+
+## Documentation
+
+|     Service     | Installation                                                                            | Usage                                                                              |
+|:---------------:| --------------------------------------------------------------------------------------- |:---------------------------------------------------------------------------------- |
+| K3s & WireGuard | [README](https://github.com/WesleyCh3n/NTU-IoT-Server/blob/main/README.init.k3s_wg.md)  | [README](https://github.com/WesleyCh3n/NTU-IoT-Server/blob/main/k3s/README.md)     |
+|     Ansible     | [README](https://github.com/WesleyCh3n/NTU-IoT-Server/blob/main/README.init.ansible.md) | [README](https://github.com/WesleyCh3n/NTU-IoT-Server/blob/main/ansible/README.md) |
+|    Database     | [README](https://github.com/WesleyCh3n/NTU-IoT-Server/blob/main/README.init.server.md)  | -                                                                                  |
